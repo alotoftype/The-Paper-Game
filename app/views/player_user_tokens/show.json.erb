@@ -1,0 +1,1 @@
+<%= raw ({ :user_id => current_user.id, :user_token => FayeFilterSubscribe.user_token(player_events_path(@player.id), current_user.id) }.to_json) %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %><% if content_for?(:title) %> - <% end %>The Paper Game</title>
+  <link rel="shortcut icon" href="<%= image_path 'icon.ico' %>" type="image/x-icon" />
+  <%= stylesheet_link_tag 'application'  %>
+  <%= javascript_include_tag 'application' %>
+  <script src="/events/client.js" type="text/javascript"></script>
+  <%= yield :scripts %>
+  <!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
+  <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
+  <%= csrf_meta_tag %>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body<% if content_for?(:body_class)%> class="<%= yield :body_class %>"<% end %>>
+  <div id="header"><%= link_to_unless_current image_tag('logo.png', :id => 'logo', :alt => 'The Paper Game'), root_path %></div>
+  <div id="main_nav">
+    <ul>
+      <li><%= link_to_unless_current 'Find a Game', games_path %></li>
+      <li><%= link_to_unless_current 'Create a Game', new_game_path %></li>
+      <% if current_user %><li><%= link_to_unless_current 'Your Games', games_account_path %><% if current_user.active_game_count.to_i > 0 %> (<%= current_user.active_game_count %>)<% end %></li><% end %>
+    </ul>
+    <ul id="user_nav">
+      <% if current_user %>
+        <li>Logged in as <b><%= current_user.login %></b></li>
+        <li><%= link_to_unless_current 'Edit Profile', edit_account_path %></li>
+        <li><%= link_to_unless_current 'Log Out', logout_path %></li>
+      <% else %>
+        <li><%= link_to_unless_current 'Register', new_account_path %></li>
+        <li><%= link_to_unless_current 'Log In', login_path %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="content" class="clearfix">
+    <div id="flash_mail"<% if !flash[:mail] %> style="display:none"<% end %>>
+      <h1>Sent Mail</h1>
+      <p><a href="javascript:$('#flash_mail').hide()">Remove</a></p>
+      <%= flash[:mail] %>
+    </div>
+    <div id="flash_failure"<% if !flash[:failure] %> style="display:none"<% end %>><%= flash[:failure] %></div>
+    <div id="flash_notice"<% if !flash[:notice] %> style="display:none"<% end %>><%= flash[:notice] %></div>
+    <div id="flash_success"<% if !flash[:success] %> style="display:none"<% end %>><%= flash[:success] %></div>
+    <%= yield %>
+    <% if content_for?(:actions) %><div id="actions"><ul><%= yield(:actions) %></ul></div><% end %>
+  </div>
+</body>
+</html>

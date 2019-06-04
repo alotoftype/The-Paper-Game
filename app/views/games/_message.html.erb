@@ -1,0 +1,7 @@
+<% user ||= nil %>
+<% if user then login = user.login else login = message.login end %>
+
+<li>
+  <b class="chat_name <%= 'player_' + message.player_id.to_s if message.player_id %>"><%= login %></b>: <%= message.message %>
+  <!-- <%= link_to("delete", game_message_path(game, message), :method => :delete, :confirm => "Are you sure?") if message.can_destroy?(current_user) %> -->
+</li>

@@ -1,0 +1,10 @@
+<% title 'Edit "' + @game.name + '"' %>
+
+<h1>Edit "<%= @game.name %>"</h1>
+
+<%= render 'form' %>
+
+<% content_for :actions do %>
+  <li><%= link_to 'Show', @game %></li>
+  <li><%= link_to 'Back', games_path %></li>
+<% end %>

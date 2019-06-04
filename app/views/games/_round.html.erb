@@ -1,0 +1,59 @@
+<% player ||= game.player(current_user) %>
+
+<% if game.has_ended? %>
+  <h3>Game over!</h3>
+<% else %>
+  <% if player && !player.is_ejected %>
+    <% round = player.current_round(game) %>
+    <% if player.plays_remaining == 0 %>
+      <h3>You're done!</h3>
+      <p>Now you just have to wait for everyone else to catch up.</p>
+    <% elsif player.plays_remaining == 1 %>
+      <h3>Last play!</h3>
+      <p>Better make it good!</p>
+    <% elsif !game.has_started? %>
+      <h3>Waiting...</h3>
+      <p>This game hasn't started yet. The creator will start the game when ready.</p>
+      <p>
+        This game will have <%= pluralize game.round_limit, 'round' %>.
+        This is <%= game.is_private ? '' : 'not ' %> a private game. (It will <%= game.is_private ? 'not ' : '' %>show up in the public game listing.)
+      </p>
+      <% if game.can_invite?(player.user) %>
+        <p>You can <%= link_to 'invite other users', new_game_invitation_path(game) %>.</p>
+      <% end %>
+    <% else %>
+      <h3>Round <%= round %> </h3>
+      <p>out of <%= game.round_limit %> – <%= player.plays_remaining %> plays remaining</p>
+      <% if player.pending_play %>
+        <% previous_play = player.pending_play.sequence.plays.last %>
+        <% if round == 1 %>
+          <p>You're beginning a new sheet. Make up a sentence to get it started.</p>
+          <p>Everyone else is writing one, too, and they'll all get passed to the next player in line.</p>
+        <% elsif round <= 5 && previous_play && previous_play.is_sentence? %>
+          <p>Someone has sent you a sentence. All you have to do is draw what they wrote.</p>
+        <% elsif round <= 5 && previous_play && previous_play.is_picture? %>
+          <p>Someone has sent you a picture. This is the easy part: just describe it.</p>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% round = game.estimated_current_round %>
+    <% if round > game.round_limit %>
+      <h3>Almost there!</h3>
+      <p>This game is just about finished!</p>
+    <% elsif round == game.round_limit %>
+      <h3>Almost there!</h3>
+      <p>The last round has begun!</p>
+    <% elsif round == 0 %>
+      <h3>Waiting...</h3>
+      <p>This game hasn't started yet. The creator will start the game when ready.</p>
+      <p>
+          This game will have <%= pluralize game.round_limit, 'round' %>.
+          This is <%= game.is_private ? '' : 'not ' %> a private game. (It will <%= game.is_private ? 'not ' : '' %>show up in the public game listing.)
+      </p>
+    <% else %>
+      <h3>Round <%= round %></h3>
+      <p>out of <%= game.round_limit %></p>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,26 @@
+<table class="games">
+  <col width="15%"/>
+  <col width="15%"/>
+  <col width="15%"/>
+  <col width="15%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Invited By</th>
+      <th>Creator</th>
+      <th>Created</th>
+      <th>Rounds</th>
+      <th>Players</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'invitations/row', :collection => invitations %>
+  </tbody>
+</table>
+

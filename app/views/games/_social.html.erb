@@ -1,0 +1,11 @@
+<% game ||= nil %>
+
+<div id="players">
+  <%= render :partial => 'games/players', :locals => { :game => game, :user => current_user } %>
+</div>
+
+<% if player %>
+  <div id="messages">
+    <%= render :partial => 'games/messages', :locals => { :game => game } %>
+  </div>
+<% end %>

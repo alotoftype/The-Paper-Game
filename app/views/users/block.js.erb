@@ -1,0 +1,10 @@
+<% if @block.errors.any? %>
+  $("#flash_success").hide();
+  <% message = 'Block ' + @block.errors[:block].join(" and ") + '.' %>
+  $("#flash_failure").html("<%= escape_javascript(message)%>");
+  $("#flash_failure").show();
+<% else %>
+  $(".block_<%= @block.blocked_user_id %>").replaceWith('<%= unblock_link(@block.blocked_user_id) %>');
+  $("#flash_success").html("<%= escape_javascript(flash[:success])%>");
+  $("#flash_success").show();
+<% end %>

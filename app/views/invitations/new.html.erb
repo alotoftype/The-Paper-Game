@@ -1,0 +1,12 @@
+<h1>Invite a Friend</h1>
+
+<%= semantic_form_for [@game, @invitation] do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :invitee, :required => true, :label => 'Friend', :collection => current_user.invitable_friends(@game.id).collect{|f| f.friend} %>
+  <% end %>
+  <%= form.actions %>
+<% end %>
+
+<% content_for :actions do %>
+  <li><%= link_to 'Cancel', @invitation.game %></li>
+<% end %>

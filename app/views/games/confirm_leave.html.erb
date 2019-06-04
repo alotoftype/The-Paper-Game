@@ -1,0 +1,8 @@
+<% title 'Leave "' + @game.name + '"?'%>
+
+<h1>Leave "<%= @game.name %>"?</h1>
+
+Do you want to leave this game?
+
+<%= button_to 'Yes, leave the game!', leave_game_path(@game), :method => :post %>
+<%= button_to 'No, go back!', game_path(@game), :method => :get %>

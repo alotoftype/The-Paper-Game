@@ -1,0 +1,19 @@
+<h3>Chat</h3>
+<% messages = game.game_messages.with_user.all %>
+<% game_id = game.id %>
+<div class="scroll_pane">
+  <ol id="message_list">
+   <%= render :partial => 'games/message', :collection => messages, :locals => { :game => game } %>
+  </ol >
+</div>
+<% message = GameMessage.new :game => game %>
+<% if message.can_create?(current_user) %>
+  <%= semantic_form_for [game, message], :url => game_messages_path(game), :remote => true do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :message, :as => :text, :required => true, :hint => "Send a message, but don't blab about your prompt!" %>
+    <% end %>
+    <%= form.actions do %>
+      <%= form.action :submit, :as => :button, :label => "Post", :button_html => { :disable_with => "Sending..." } %>
+    <% end %>
+  <% end %>
+<% end %>

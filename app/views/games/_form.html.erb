@@ -1,0 +1,12 @@
+<%= semantic_form_for @game do |form| %>
+  <%= form.inputs do %>
+    <%= form.semantic_errors %>
+    <%= form.input :name, :required => true %>
+    <%= form.input :round_limit, :required => true %>
+    <%= form.input :player_limit, :required => true %>
+    <%= form.input :is_private %>
+    <%= form.input :is_open_invitation %>
+  <% end %>
+  <%= form.actions %>
+<% end %>
+

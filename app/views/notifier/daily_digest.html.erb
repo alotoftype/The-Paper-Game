@@ -1,0 +1,17 @@
+<h1>The Paper Game Daily Digest</h1>
+<p>Hi <%= @login %>,</p>
+<p>You have pending plays:</p>
+<ul>
+    <% @games.each do |game| %>
+      <li>
+        <%= link_to game[1]['name'], game_url(game[0]) %> (<%= game[1]['count'] %>)
+          <% game[1]['plays'].each do |is_picture| %>
+            <% if is_picture %>
+              <%= image_tag image_url('picture.png'), :alt => 'Picture', :title => 'Picture', :style => 'margin: 0 0 0 5px;' %>
+            <% else %>
+              <%= image_tag image_url('sentence.png'), :alt => 'Sentence', :title => 'Sentence', :style => 'margin: 0 0 0 5px;' %>
+            <% end %>
+          <% end %>
+      </li>
+    <% end %>
+</ul>

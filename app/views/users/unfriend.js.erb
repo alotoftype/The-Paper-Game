@@ -1,0 +1,10 @@
+<% if @friend.errors.any? %>
+  $("#flash_success").hide();
+  <% message = 'Friend ' + @friend.errors[:friend].join(" and ") + '.' %>
+  $("#flash_failure").html("<%= escape_javascript(message)%>");
+  $("#flash_failure").show();
+<% else %>
+  $(".friend_<%= @friend.friend_user_id %>").replaceWith('<%= friend_link(@friend.friend_user_id) %>');
+  $("#flash_success").html("<%= escape_javascript(flash[:success])%>");
+  $("#flash_success").show();
+<% end %>

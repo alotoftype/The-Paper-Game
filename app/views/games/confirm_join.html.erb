@@ -1,0 +1,8 @@
+<% title 'Join "' + @game.name + '"?'%>
+
+<h1>Join "<%= @game.name %>"?</h1>
+
+Do you want to join this game?
+
+<%= button_to 'Yes, join the game!', join_game_path(@game), :method => :post %>
+<%= button_to 'No, go back!', game_path(@game), :method => :get %>

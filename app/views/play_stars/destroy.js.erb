@@ -1,0 +1,11 @@
+<% if @play_star.errors.any? %>
+  <% message = 'Star ' + @play_star.errors[:star].join(" and ") + '.' %>
+  $("#flash_success").hide();
+  $("#flash_failure").html("<%= escape_javascript(message)%>");
+  $("#flash_failure").show();
+<% else %>
+  $(".star_<%= @play_star.play_id %>").replaceWith('<%= star_link(@play_star.play) %>');
+  $("#flash_failure").hide();
+  $("#flash_success").html("<%= escape_javascript(flash[:success])%>");
+  $("#flash_success").show();
+<% end %>

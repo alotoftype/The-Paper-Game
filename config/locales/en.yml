@@ -1,0 +1,52 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  authlogic:
+    error_messages:
+      login_blank: "cannot be blank"
+      login_not_found: "not found"
+      login_invalid: "should use only letters, numbers, spaces, and the characters .-_@"
+      consecutive_failed_logins_limit_exceeded: "Consecutive failed logins limit exceeded, account is disabled."
+      email_invalid: "should look like an email address"
+      password_blank: "cannot be blank."
+      password_invalid: "Password is incorrect."
+      not_active: "Your account is not active."
+      not_confirmed: "Your account is not confirmed. Check your inbox for your confirmation email."
+      not_approved: "Your account is not approved."
+      no_authentication_details: "You did not provide any details for authentication."
+      general_credentials_error: "Login/password combination is not valid."
+    models:
+      user_session: "UserSession"
+    attributes:
+      user_session:
+        login: "Login"
+        email: "Email"
+        password: "Password"
+        remember_me: "Remember Me"
+  activerecord:
+    errors:
+      models:
+        play:
+          attributes:
+            sentence:
+              too_short: "A sentence must be at least 10 characters long."
+  formtastic:
+    labels:
+      name_cont: "Name"
+      game:
+        name: "Name"
+        round_limit: "Round Limit"
+        player_limit: "Player Limit"
+        is_private: "Private"
+        is_open_invitation: "Open Invitation"
+    hints:
+      game:
+        name: "Let people know what to expect or set a theme for your game."
+        round_limit: "13 is a pretty good place to start."
+        player_limit: "At least 5 is best, and an odd number is better than an even one."
+        is_private: "Prevent this game from showing up in public listings."
+        is_open_invitation: "Allow other players to send invitations."
+    actions:
+      create: "Create"
+      update: "Save Changes"

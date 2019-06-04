@@ -1,0 +1,11 @@
+<% game ||= nil %>
+<% user ||= nil %>
+
+<h3>Players</h3>
+<ol>
+  <% players = game.players.for_display(current_user).all %>
+  <%= render :partial => 'games/player', :collection => players, :locals => { :game => game, :user => user } %>
+</ol>
+<% unless game.has_started? %>
+  <p><b><%= game.spots_remaining > 0 ? game.spots_remaining : 'No' %></b> spot<%= game.spots_remaining == 1 ? '' : 's' %> left!</p>
+<% end %>

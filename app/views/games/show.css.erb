@@ -1,0 +1,8 @@
+<% @game.players.each do |p| %>
+.player_<%= p.id %> {
+<%= 'background-color: hsla(' + p.color.to_s + ', 50%, 50%, .5); color: hsl(' + p.color.to_s + ', 50%, 20%); border-color: hsl(' + p.color.to_s + ', 50%, 65%);' %>
+}
+.chat_name.player_<%= p.id %> {
+<%= 'background: none; color: hsl(' + p.color.to_s + ', 50%, 40%); border: none;' %>
+}
+<% end %>

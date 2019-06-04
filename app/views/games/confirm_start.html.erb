@@ -1,0 +1,8 @@
+<% title 'Start "' + @game.name + '"?'%>
+
+<h1>Start "<%= @game.name %>"?</h1>
+
+Do you want to start this game?
+
+<%= button_to 'Yes, start the game!', start_game_path(@game), :method => :post %>
+<%= button_to 'No, go back!', game_path(@game), :method => :get %>

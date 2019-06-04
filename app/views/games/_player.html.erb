@@ -1,0 +1,33 @@
+<li>
+  <div class="player_color_icon player_<%= player.id %>"></div>
+  <%= player.login %>
+  <% if user && player.user_id != user.id %>
+    <% if player.is_friend %>
+      <%= unfriend_link(player.user_id) %>
+    <% else %>
+      <%= friend_link(player.user_id) %>
+    <% end %>
+    <% if player.is_blocked %>
+      <%= unblock_link(player.user_id) %>
+    <% else %>
+      <%= block_link(player.user_id) %>
+    <% end %>
+  <% end %>
+  <% if player.is_creator %>
+    <%= image_tag 'creator.png', :alt => 'Creator', :title => 'Creator', :class => 'play_icon' %>
+  <% end %>
+  <% if player.is_ejected %>
+    <%= image_tag 'ejected.png', :alt => 'Ejected', :title => 'Ejected', :class => 'play_icon' %>
+  <% elsif player.can_eject?(user) %>
+    <%= link_to 'Eject', eject_game_player_path(game, player), :method => :post, :confirm => 'Are you sure want to eject ' + player.login + ' from the game?' %>
+  <% end %>
+  <% if !game.has_ended? %>
+    <% player.pending_plays.each do |play| %>
+      <% if play.is_sentence? %>
+        <%= image_tag 'sentence.png', :alt => 'Sentence', :title => 'Sentence', :class => 'play_icon', :style => bleed_risk_style(play.sequence) %>
+      <% else %>
+        <%= image_tag 'picture.png', :alt => 'Picture', :title => 'Picture', :class => 'play_icon', :style => bleed_risk_style(play.sequence) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</li>

@@ -1,0 +1,27 @@
+<nav class="pagination">
+  <% sequences = game.sequences.order(:position).select(:position).all %>
+  <% last = sequences.length %>
+  <span class="prev">
+    <% if sequence_position && sequence_position.to_i != 1 %>
+      <%= link_to(raw(t 'views.pagination.previous'), game_sequence_path(game, sequence_position.to_i - 1), :rel => 'prev') %>
+    <% else %>
+      <%= raw(t 'views.pagination.previous') %>
+    <% end %>
+  </span>
+  <% sequences.each do |sequence| %>
+      <% is_current = (sequence_position && sequence.position == sequence_position.to_i) %>
+      <% is_next = sequence_position && sequence.position == sequence_position.to_i + 1 %>
+      <% is_prev = sequence_position && sequence.position == sequence_position.to_i - 1 %>
+      <span class="page<%= ' current' if is_current %>">
+        <%= link_to_unless is_current, sequence.position, game_sequence_path(game, sequence), opts = {:rel => is_next ? 'next' : is_prev ? 'prev' : nil} %>
+      </span>
+  <% end %>
+  <span>
+    <% if sequence_position && sequence_position.to_i != last %>
+      <%= link_to(raw(t 'views.pagination.next'), game_sequence_path(game, sequence_position.to_i + 1), :rel => 'next') %>
+    <% else %>
+      <%= raw(t 'views.pagination.next') %>
+    <% end %>
+  </span>
+</nav>
+

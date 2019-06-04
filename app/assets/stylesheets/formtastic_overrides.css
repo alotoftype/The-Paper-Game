@@ -1,0 +1,178 @@
+form.formtastic {
+  float: left;
+  clear: left;
+  border: 2px solid;
+  background-color: rgba(191, 191, 0, 0.25);
+  border-color: rgba(153, 149, 0, 0.5);
+  padding: 1em;
+  border-radius: 2px;
+  margin-bottom: 1.5em;
+  float: left;
+  clear: left;
+}
+
+.formtastic .buttons,
+.formtastic .actions {
+  padding-left: 0;
+}
+
+.formtastic fieldset {
+  background: none;
+}
+
+.formtastic input[type="submit"],
+.formtastic button,
+input[type="submit"],
+button {
+  border: 2px solid #99aa99;
+  border-radius: 4px;
+  padding: 2px 4px;
+  background-image: url("/assets/button.png");
+  background-color: #ece6c0;
+  background-size: auto 100%;
+  font-family: inherit;
+  color: #555500;
+}
+
+.formtastic input[type="submit"]:hover,
+.formtastic button:hover
+input[type="submit"]:hover,
+button:hover {
+  border-color: #829982;
+  background-color: #e5deac;
+}
+
+.formtastic input[type="submit"]:active,
+.formtastic button:active
+input[type="submit"]:active,
+button:active {
+  border-color: #738c73;
+  background-color: #d9d2a3;
+}
+
+.formtastic input[type="submit"].link,
+.formtastic button.link,
+input[type="submit"].link,
+button.link {
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  line-height: normal;
+  text-decoration: underline;
+  cursor: pointer;
+  -moz-user-select: text;
+}
+
+.formtastic input[type="submit"].link::-moz-focus-inner,
+.formtastic button.link::-moz-focus-inner,
+input[type="submit"].link::-moz-focus-inner,
+button.link::-moz-focus-inner {
+  padding:0;
+  border:0;
+}
+
+.formtastic input[type="submit"].link,
+.formtastic button.link,
+input[type="submit"].link,
+button.link {
+  color: #1a4882;
+}
+
+.formtastic input[type="submit"].link:focus,
+.formtastic button.link:focus,
+input[type="submit"].link:focus,
+button.link:focus,
+.formtastic input[type="submit"].link:hover,
+.formtastic button.link:hover,
+input[type="submit"].link:hover,
+button.link:hover {
+  color: #052246;
+}
+
+.formtastic input[type="submit"].link:active,
+.formtastic button.link:active,
+input[type="submit"].link:active,
+button.link:active {
+  color: #1a4882;
+}
+
+.formtastic .input {
+  padding: 0.4em 0;
+}
+
+.formtastic .boolean label {
+  padding-left: 0;
+}
+
+.formtastic .input:first-child:not(.boolean) {
+  padding-top: 0;
+}
+
+.formtastic .input::last-child {
+  padding-bottom: 0;
+}
+
+.formtastic .input .label {
+  width: auto;
+  display: block;
+  float: none;
+	margin-top: 0.3em;
+}
+
+.formtastic .inline-errors {
+  margin-left: 0;
+  display: block;
+  font-size: 90%;
+}
+
+.formtastic .errors {
+  margin: 0 0 0.5em 0;
+  list-style: none;
+  padding: 8px;
+  border: 1px solid;
+  background-color: hsla(30, 50%, 80%, 0.8);
+  border-color: hsl(30, 50%, 70%);
+  color: hsl(30, 50%, 35%);
+  border-radius: 8px;
+}
+
+.formtastic .file .label {
+  font-weight: bold;
+}
+
+.formtastic .buttons {
+  padding-left: 0;
+  display: block;
+}
+
+.formtastic .stringish input,
+.formtastic textarea {
+  border: 1px solid rgba(153, 149, 0, 0.5);
+  border-radius: 2px;
+  padding: 2px 4px;
+}
+
+.formtastic .stringish input:hover,
+.formtastic textarea:hover,
+.formtastic .stringish input:focus,
+.formtastic textarea:focus {
+  border-color: rgba(153, 149, 0, 0.75);
+}
+
+.formtastic .input .inline-hints {
+  margin: 0;
+}
+
+.formtastic .stringish input {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.formtastic .number input {
+  width: 5em;
+}

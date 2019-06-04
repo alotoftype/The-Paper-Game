@@ -1,0 +1,23 @@
+<% game_message = @game_message %>
+<% user = game_message.user %>
+
+<% if game_message.errors.any? %>
+  $("#flash_success").hide();
+  $("form#new_game_message li#game_message_message_input").addClass("error");
+  $("form#new_game_message li#game_message_message_input p.inline-errors").remove();
+  <% message = escape_javascript(game_message.errors[:message].join(" and ")) %>
+  $("form#new_game_message li#game_message_message_input").append('<p class="inline-errors"><%= message %></p>');
+<% else %>
+  <% broadcast events_url, game_events_path(game_message.game_id) do %>
+    $("#message_list").append("<%= escape_javascript( render :partial => 'games/message', :locals => { :message => game_message, :game => game_message.game, :user => user } ) %>");
+    var scrollPane = $("#message_list").parents(".scroll_pane").data('jsp');
+    if (scrollPane) {
+      scrollPane.reinitialise();
+      scrollPane.scrollToBottom(false);
+    }
+  <% end %>
+  $("form#new_game_message li#game_message_message_input").removeClass("error");
+  $("form#new_game_message li#game_message_message_input p.inline-errors").remove();
+  $("form#new_game_message li#game_message_message_input textarea").val('');
+<% end %>
+

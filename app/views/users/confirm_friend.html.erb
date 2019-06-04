@@ -1,0 +1,8 @@
+<% title 'Friend "' + @user.login + '"?'%>
+
+<h1>Friend "<%= @user.login %>"?</h1>
+
+Do you want to add this user as a friend?
+
+<%= button_to 'Yes, we''re friends!', friend_user_path(@user), :method => :post %>
+<%= button_to 'No, go back!', back_or_default_path(user_path @user), :method => :get %>

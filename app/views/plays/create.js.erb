@@ -1,0 +1,48 @@
+<% game = @play.sequence.game(true) %>
+<% player = game.player(current_user) %>
+<% if @play.is_picture? %>
+  <%= remotipart_response do %>
+    <% if @play.errors.any? %>
+      $("#flash_success").hide();
+      $("#play_picture_attributes_image_input").addClass("error");
+      $("#play_picture_attributes_image_input p.inline-errors").remove();
+      $('#play_picture_attributes_image').on('change', previewSelectedImageFile);
+      <% message = escape_javascript(@play.picture.errors[:image].join(" and ")) %>
+      $("form#new_play li#play_picture_attributes_image_input").append('<p class="inline-errors"><%= message %></p>');
+    <% else %>
+      <% broadcast events_url, game_events_path(game.id) do %>
+        $("#players").html("<%= escape_javascript( render :partial => 'games/players', :locals => { :game => game, :player => player } ) %>");
+      <% end %>
+      $("#plays").html("<%= escape_javascript( render :partial => 'games/plays', :locals => { :game => game, :player => player } ) %>");
+      $("#round").html("<%= escape_javascript( render :partial => 'games/round', :locals => { :game => game, :player => player } ) %>");
+      $("#flash_success").html("<%= escape_javascript(flash[:success])%>");
+      $("#flash_success").show();
+      $("#round").goTo();
+    <% end %>
+  <% end %>
+<% else %>
+  <% if @play.errors.any? %>
+    $("#flash_success").hide();
+    $("form#new_play li#play_sentence_input").addClass("error");
+    $("form#new_play li#play_sentence_input p.inline-errors").remove();
+    <% message = escape_javascript(@play.errors[:sentence].join(" and ")) %>
+    $("form#new_play li#play_sentence_input").append('<p class="inline-errors"><%= message %></p>');
+  <% else %>
+    <% broadcast events_url, game_events_path(game.id) do %>
+      $("#players").html("<%= escape_javascript( render :partial => 'games/players', :locals => { :game => game, :player => player } ) %>");
+    <% end %>
+    $("#plays").html("<%= escape_javascript( render :partial => 'games/plays', :locals => { :game => game, :player => player } ) %>");
+    $("#round").html("<%= escape_javascript( render :partial => 'games/round', :locals => { :game => game, :player => player } ) %>");
+    $("#flash_success").html("<%= escape_javascript(flash[:success])%>");
+    $("#flash_success").show();
+    $("#round").goTo();
+  <% end %>
+<% end %>
+<% if !@play.errors.any? %>
+  <% if player.is_next_play_picture? %>
+    $(".drawing_pad").each(function () { new DrawingPad($(this)); });
+    $('#play_picture_attributes_image').on('change', previewSelectedImageFile);
+  <% elsif player.is_next_play_sentence? %>
+    $('#play_sentence').autosize();
+  <% end %>
+<% end %>

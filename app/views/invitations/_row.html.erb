@@ -1,0 +1,12 @@
+<% invitation = row %>
+<tr>
+  <td data-column="Name"><%= link_to invitation.game.name, game_path(invitation.game) %></td>
+  <td data-column="Invited By"><%= invitation.inviter.login %></td>
+  <td data-column="Creator"><%= invitation.game.creator.login %></td>
+  <td data-column="Created"><%= invitation.game.created_at.strftime('%Y-%m-%d') %></td>
+  <td data-column="Rounds"><%= invitation.game.round_limit %></td>
+  <td data-column="Players"><%= invitation.game.users.count %> / <%= invitation.game.player_limit %></td>
+  <td data-column="Accept"><%= link_to 'Accept', accept_invitation_path(invitation), :method => :post %></td>
+  <td data-column="Decline"><%= link_to 'Decline', decline_invitation_path(invitation), :method => :post %></td>
+</tr>
+

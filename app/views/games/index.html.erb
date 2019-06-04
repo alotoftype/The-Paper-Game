@@ -1,0 +1,26 @@
+<% @search ||= Game.new %>
+<% title 'Find a Game' %>
+
+<h1>Find a Game</h1>
+
+<% if (@games.nil? || @games.count == 0) %>
+  <p>There are no open games <% if @search.conditions.any? %>that match you search<% else %>at the moment<% end %>.
+  <% if current_user %>
+    Why not <%= link_to 'start one', new_game_path %>?
+  <% else %>
+    <%= link_to 'Log in', login_path %> to start one.
+  <% end %>
+  </p>
+  <% if @search.conditions.any? %>
+    <%= render :partial => 'games/search', :locals => { :search => @search } %>
+  <% end %>
+<% else %>
+  <%= render :partial => 'games/search', :locals => { :search => @search } %>
+  <%= paginate @games %>
+  <%= render :partial => 'games/table', :locals => { :games => @games } %>
+<% end %>
+
+<% content_for :actions do %>
+    <% if Game.can_create?(current_user) %><li><%= link_to 'Create a Game', new_game_path  %></li><% end %>
+<% end %>
+

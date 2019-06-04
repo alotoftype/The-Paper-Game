@@ -1,0 +1,24 @@
+<table class="games">
+  <col width="20%"/>
+  <col width="20%"/>
+  <col width="20%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <col width="10%"/>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creator</th>
+      <th>Created</th>
+      <th>Rounds</th>
+      <th>Players</th>
+      <th>Friends</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'games/row', :collection => games %>
+  </tbody>
+</table>
+

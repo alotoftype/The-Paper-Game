@@ -1,0 +1,10 @@
+<% game = row %>
+<tr>
+  <td data-column="Name"><%= link_to game.name, game_path(game) %><% if game.play_count.to_i > 0 %> (<%= game.play_count%>)<% end %></td>
+  <td data-column="Creator"><%= game.creator.login %></td>
+  <td data-column="Created"><%= game.created_at.strftime('%Y-%m-%d') %></td>
+  <td data-column="Rounds"><%= game.round_limit %></td>
+  <td data-column="Players"><%= game.users.count %><%= game.has_started? ? '' : ' / ' + game.player_limit.to_s %></td>
+  <td data-column="Friends"><%= game.friend_count %></td>
+  <td data-column="Join"><% if current_user && !game.player(current_user) %><%= link_to 'Join Game', join_game_path(game), :method => :post %><% end %></td>
+</tr>

@@ -1,0 +1,8 @@
+<%= semantic_search_form_for search, :html => { :method => :get } do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name_cont, :required => false %>
+  <% end %>
+  <%= form.actions do %>
+    <%= form.action :submit, :label => 'Search' %>
+  <% end %>
+<% end %>

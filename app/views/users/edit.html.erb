@@ -1,0 +1,57 @@
+<% change_email = @user %>
+<% change_password = @user %>
+
+<div style="float: left; margin-right: 20px;">
+  <h1>Edit profile</h1>
+  
+  <%= semantic_form_for @user, :html => { :id => "edit_profile" } do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :login, :required => true %>
+    <% end %>
+    <%= form.actions %>
+  <% end %>
+</div>
+
+<div style="float: left; margin-right: 20px;">
+  <h1>Change email</h1>
+  
+  <%= semantic_form_for change_email, :html => { :id => "change_email" }  do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :email, :required => true %>
+      <%= form.input :email_confirmation, :required => true %>
+    <% end %>
+    <%= form.actions %>
+  <% end %>
+</div>
+
+<div style="float: left; margin-right: 20px;">
+  <h1>Change password</h1>
+  
+  <%= semantic_form_for change_password, :html => { :id => "change_password" }  do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :password, :required => true %>
+      <%= form.input :password_confirmation, :required => true  %>
+    <% end %>
+    <%= form.actions %>
+  <% end %>
+</div>
+
+<div style="float: left; margin-right: 20px;">
+    <h1>Settings</h1>
+
+    <%= semantic_form_for @user, :html => { :id => "settings" } do |form| %>
+      <%= form.inputs do %>
+        <%= form.input :wants_daily_digest, :label => 'Send me daily notifications if I have pending plays' %>
+      <% end %>
+      <%= form.actions %>
+    <% end %>
+</div>
+
+<% content_for :actions do %>
+  <li><%= link_to 'View Profile', account_path %></li>
+  <% if current_user.authentications.find_by_provider("facebook") %>
+    <li>Linked to Facebook</li>
+  <% else %>
+    <li><a href="/auth/facebook">Link to Facebook</a></li>
+  <% end %>
+<% end %>

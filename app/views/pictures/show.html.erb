@@ -1,0 +1,12 @@
+<% content_for :scripts do %>
+  <%= stylesheet_link_tag game_path(@picture.play.game, :format => "css") %>
+<% end %>
+
+<h1>By <%= @picture.login %></h1>
+<div class="picture_frame player_<%= @picture.play.player_id %>">
+  <%= image_tag @picture.image.url %>
+</div>
+
+<% content_for :actions do %>
+  <li><%= link_to 'Back to Game', back_to_game_path(@picture.play.game) %></li>
+<% end %>

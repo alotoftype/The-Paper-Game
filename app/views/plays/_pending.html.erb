@@ -1,0 +1,58 @@
+<% play = pending %>
+<% previous_play = play.sequence.plays.last %>
+<% if play.is_sentence? %>
+  <% if previous_play %>
+    <h4>Response</h4>
+    <p>Write what you see!</p>
+  <% end %>
+  <%= semantic_form_for play, :remote => true do |form| %>
+    <%= form.semantic_errors %>
+    <%= form.inputs do %>
+      <%= form.input :sentence, :as => :text, :required => true %>
+      <%= form.input :sequence_id, :input_html => { :value => play.sequence_id }, :as => :hidden %>
+    <% end %>
+    <%= form.actions do %>
+        <%= form.action :submit, :as => :button, :label => 'Send Sentence', :button_html => { :disable_with => 'Sending...' }  %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if previous_play %>
+    <h4>Response</h4>
+    <p>Draw this sentence!</p>
+  <% end %>
+  <div class="drawing_pad" data-sequence-id="<%= play.sequence_id %>">
+    <canvas width="500" height="300"></canvas>
+    <div class="drawing-controls">
+      <div class="color_picker"></div>
+      <div class="tools">
+        <button class="marker"><%= image_tag 'marker.png', :alt => 'Marker', :title => 'Marker' %></button>
+        <button class="eraser"><%= image_tag 'eraser.png', :alt => 'Eraser', :title => 'Eraser' %></button>
+        <button class="hand"><%= image_tag 'hand.png', :alt => 'Hand', :title => 'Hand' %></button>
+      </div>
+      <button class="stroke-controls-button" onclick="$(this).siblings('.stroke-controls').toggleClass('show')"><%= image_tag 'marker.png', :alt => 'Stroke', :title => 'Stroke' %></button>
+      <div class="stroke-controls">
+        <div class="slider width"><label>Width:</label><span>1px</span><input type="range" min="1" max="30" step="1" value="5" class="input"><span>30px</span><span class="current_value">(5px)</span></div>
+        <div class="slider hardness"><label>Hardness:</label><span>0</span><input type="range" min="0" max="10" step="1" value="10"><span>10</span><span class="current_value">(10)</span></div>
+        <div class="slider opacity"><label>Opacity:</label><span>1</span><input type="range" min="1" max="10" step="1" value="10"><span>10</span><span class="current_value">(10)</span></div>
+      </div>
+      <button class="submit" class="submit" data-disable-with="Sending..." data-confirm="All done?">Submit</button>
+    </div>
+  </div>
+  <div class="clearfix">
+    <p>Or just upload an image:</p>
+    <%= semantic_form_for play, :remote => true, :html => { :multipart => true } do |form| %>
+      <%= form.semantic_errors %>
+      <%= form.inputs do %>
+        <%= form.inputs :for => :picture do |pic| %>
+          <%= pic.input :image, :as => :file, :required => true, :hint => 'Must be a PNG, JPEG, or GIF.', :input_html => { :accept => 'image/jpeg,image/gif,image/png' }  %>
+        <% end %>
+        <%= form.input :sequence_id, :input_html => { :value => play.sequence_id }, :as => :hidden %>
+      <% end %>
+      <canvas id="play_upload_image_preview" height="200"></canvas>
+      <%= form.actions do %>
+        <%= form.action :submit, :as => :button, :label => 'Upload Image', :button_html => { :disable_with => 'Sending...' }  %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+

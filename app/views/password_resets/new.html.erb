@@ -1,0 +1,12 @@
+<% title 'Request password reset' %>
+
+<h1>Request password reset</h1>
+
+<%= semantic_form_for @user, :url => '/account/password_resets', :html => { :id => "reset_password" }  do |form| %>
+    <%= form.inputs do %>
+        <%= form.input :login, :required => true %>
+    <% end %>
+    <%= form.actions do %>
+      <%= form.action :submit, :label => 'Send' %>
+    <% end %>
+<% end %>

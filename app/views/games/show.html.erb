@@ -1,0 +1,50 @@
+<% player = @game.player(current_user) %>
+<% failed_play ||= nil %>
+<% sequence_position ||= nil %>
+
+<% title @game.name %>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(SubscribeToGameUpdates(<%=j @game.id.to_s %>, '<%=j events_url %>', '<%=j game_events_path(@game.id) %>'));
+    <% if player %>
+      $(SubscribeToPlayerUpdates(<%=j player.id.to_s %>, '<%=j events_url %>', '<%=j player_events_path(player.id) %>'));
+    <%end%>
+  </script>
+  <%= stylesheet_link_tag game_path(@game, :format => 'css'), :id => 'game_stylesheet' %>
+<% end %>
+
+<div id="game_play">
+  <h1><%= @game.name %></h1>
+
+  <div id="round">
+    <%= render :partial => 'games/round', :locals => { :game => @game, :player => player } %>
+  </div>
+
+  <div id="plays">
+    <%= render :partial => 'games/plays', :locals => { :game => @game, :player => player, :failed_play => failed_play, :sequence_position => sequence_position } %>
+  </div>
+</div>
+
+<div id="social">
+    <%= render :partial => 'games/social', :locals => { :game => @game, :player => player } %>
+</div>
+
+<% unless @game.has_started? %>
+  <% content_for :actions do %>
+    <% if player && player.is_creator %>
+      <li><%= link_to 'Edit', edit_game_path(@game) %></li>
+      <li><%= link_to 'Start', start_game_path(@game), :method => :post, :confirm => 'Are you sure you\'re ready to start this game?' %></li>
+    <% end %>
+    <% if player && (player.is_creator || !@game.is_private || @game.is_open_invitation) && !@game.is_full? %>
+      <li><%= link_to 'Invite', new_game_invitation_path(@game) %></li>
+    <% end %>
+    <% if @game.can_join?(current_user) %>
+      <li><%= link_to 'Join', join_game_path(@game), :method => :post %></li>
+    <% end %>
+    <% if @game.can_leave?(current_user) %>
+      <li><%= link_to 'Leave', leave_game_path(@game), :method => :post %></li>
+    <% end %>
+  <% end %>
+<% end %>
+

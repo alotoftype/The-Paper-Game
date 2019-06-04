@@ -1,0 +1,10 @@
+<% title 'Request login reminder' %>
+
+<h1>Request login reminder</h1>
+
+<%= semantic_form_for @user, :url => '/account/login_reminder', :html => { :id => "login_reminder" }  do |form| %>
+    <%= form.inputs do %>
+        <%= form.input :email, :required => true %>
+    <% end %>
+    <%= form.actions %>
+<% end %>

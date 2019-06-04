@@ -1,0 +1,25 @@
+<% play = completed %>
+<tr>
+  <th class="player_<%= play.player_id %>">
+   <%= play.login %>
+  </th>
+  <% if play.is_picture? %>
+    <td class="image player_<%= play.player_id %>">
+      <% if play.star_id %>
+        <%= unstar_link play %>
+      <% else %>
+        <%= star_link play if (play.user_can_star) %>
+      <% end %>
+      <%= link_to image_tag(play.picture.image.url(:display)), play.picture %>
+    </td>
+  <% else %>
+    <td class="player_<%= play.player_id %>">
+      <% if play.star_id %>
+        <%= unstar_link play %>
+      <% else %>
+        <%= star_link play if (play.user_can_star) %>
+      <% end %>
+      <p><%= play.sentence %></p>
+    </td>
+  <% end %>
+</tr>

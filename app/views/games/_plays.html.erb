@@ -1,0 +1,33 @@
+<% player ||= game.player(current_user) %>
+<% failed_play ||= nil %>
+<% sequence_position ||= nil %>
+
+<% if player && game.has_started? %>
+  <% if game.has_ended? %>
+    <h2>Choose a Sheet</h2>
+    <%= render :partial => 'games/sequence_nav', :locals => { :game => game, :sequence_position => sequence_position } %>
+    <% if sequence_position %>
+      <p>Or go back to the <%= link_to 'top plays', game %>.</p>
+      <% plays = game.plays.for_display(sequence_position, current_user).all %>
+      <h3><%= plays.first.login %>'s Sheet</h3>
+      <table class="sequence plays">
+        <%= render :partial => 'plays/completed', :collection => plays %>
+      </table>
+    <% else %>
+      <h2>Top Sentences</h2>
+      <table class="plays">
+        <%= render :partial => 'plays/completed', :collection => game.top_sentences(current_user) %>
+      </table>
+      <h2>Top Pictures</h2>
+      <table class="plays">
+        <%= render :partial => 'plays/completed', :collection => game.top_pictures(current_user) %>
+      </table>
+    <% end %>
+
+  <% else %>
+    <% if player.plays_remaining && player.plays_remaining > 0 %>
+      <%= render :partial => 'players/pending_plays', :locals => { :player => player, :failed_play => failed_play } %>
+    <% end %>
+  <% end %>
+<% end %>
+

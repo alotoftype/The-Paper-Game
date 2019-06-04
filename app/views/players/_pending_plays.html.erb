@@ -1,0 +1,51 @@
+<% player ||= nil  %>
+<% failed_play ||= nil  %>
+<% pending_play = failed_play || player.pending_play  %>
+
+<% if !player %>
+  <div>
+    <h3>Not Authorized</h3>
+    <p>You are not a player in this game.</p>
+  </div>
+<% elsif player.is_ejected %>
+  <div>
+    <h3>Ejected</h3>
+    <p>You have been ejected from the game.</p>
+  </div>
+<% elsif pending_play %>
+  <% previous_play = pending_play.sequence.plays.last %>
+  <% if previous_play %>
+    <% if previous_play.is_picture? %>
+      <div class="prompt pending_plays player_<%= previous_play.player.id %> clearfix">
+        <h4>Prompt from <%= previous_play.player.user.login %></h4><%= link_to image_tag(previous_play.picture.image.url(:display)), previous_play.picture %>
+      </div>
+    <% else %>
+      <div class="prompt pending_plays player_<%= previous_play.player.id %> clearfix">
+        <h4>Prompt from <%= previous_play.player.user.login %></h4><p>
+        <% first_line = true %>
+        <% previous_play.sentence.split("\n").each do |line| %>
+          <% unless first_line %>
+            <br/>
+          <% else %>
+            <% first_line = false %>
+          <% end %>
+          <%= line %>
+        <% end %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="pending_plays player_<%= player.id %> clearfix">
+    <%= render :partial => 'plays/pending', :object => pending_play %>
+    <% additional_plays = player.pending_plays.count - 1 %>
+    <% if additional_plays > 0 %>
+      <div class="and_x_more"><p>... and <b><%= additional_plays %></b> more!</p></div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="pending_plays player_<%= player.id %> clearfix">
+    <h3>Waiting...</h3>
+    <p>You are currently waiting for a prompt from another player.</p>
+  </div>
+<% end %>
+

@@ -1,0 +1,27 @@
+<% title 'Your Games' %>
+
+<h1>Your Games</h1>
+
+
+<% if @invitations && @invitations.count != 0 %>
+  <h3>Invitations</h3>
+  <%= paginate @invitations, :param_name => 'invitations_page' %>
+  <%= render :partial => 'invitations/table', :locals => { :invitations => @invitations } %>
+<% end %>
+
+<% if @pending_games && @pending_games.count != 0 %>
+  <h3>Pending Games</h3>
+  <%= paginate @pending_games, :param_name => 'pending_page' %>
+  <%= render :partial => 'games/table', :locals => { :games => @pending_games } %>
+<% end %>
+
+<% if @finished_games && @finished_games.count != 0 %>
+  <h3>Finished Games</h3>
+  <%= paginate @finished_games, :param_name => 'finished_page' %>
+  <%= render :partial => 'games/table', :locals => { :games => @finished_games } %>
+<% end %>
+
+<% content_for :actions do %>
+  <li><%= link_to 'Find a Game', games_path %> | <%= link_to 'Create a Game', new_game_path %></li>
+<% end %>
+
